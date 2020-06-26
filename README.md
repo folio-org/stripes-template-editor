@@ -13,7 +13,4 @@ This is a NPM module to aid with embedding the Quill editor in [Stripes](https:/
 
 Other [modules](https://dev.folio.org/source-code/#client-side).
 
-See project [UICIRC](https://issues.folio.org/browse/UICIRC)
-at the [FOLIO issue tracker](https://dev.folio.org/guidelines/issue-tracker).
-
 Other FOLIO Developer documentation is at [dev.folio.org](https://dev.folio.org/)
