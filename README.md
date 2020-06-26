@@ -1,4 +1,4 @@
-# ui-circulation
+# stripes-template-editor
 
 Copyright (C) 2017-2020 The Open Library Foundation
 
