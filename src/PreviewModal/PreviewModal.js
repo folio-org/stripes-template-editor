@@ -86,7 +86,7 @@ class PreviewModal extends React.Component {
           marginBottom0
           onClick={onClose}
         >
-          <FormattedMessage id="stripes-template.editor.close" />
+          <FormattedMessage id="stripes-template-editor.close" />
         </Button>
       </>
     );
