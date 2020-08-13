@@ -60,7 +60,7 @@ const EditorToolbar = ({
       <span className="ql-formats">
         <select
           className="ql-size"
-          aria-label={formatMessage({ id: 'stripes-template-editor.toolbar.size.label' })}
+          aria-label={formatMessage({ id: 'stripes-template-editor.toolbar.size' })}
         >
           <option
             aria-label={formatMessage({ id: 'stripes-template-editor.toolbar.size.small' })}
