@@ -11,6 +11,7 @@
   "toolbar.list.bullet": "bullet list",
   "toolbar.indent.decrease": "decrease indent",
   "toolbar.indent.increase": "increase indent",
+  "toolbar.size.label": "size",
   "toolbar.size.small": "small",
   "toolbar.size.normal": "normal",
   "toolbar.size.large": "large",
