@@ -18,5 +18,6 @@
     "toolbar.align.center": "居中",
     "toolbar.align.right": "靠右",
     "toolbar.align.justify": "证明",
-    "toolbar.link": "链接"
+    "toolbar.link": "链接",
+    "toolbar.size": "size"
 }
