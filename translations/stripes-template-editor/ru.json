@@ -18,5 +18,6 @@
     "toolbar.align.center": "по центру",
     "toolbar.align.right": "вправо",
     "toolbar.align.justify": "по ширине",
-    "toolbar.link": "ссылка"
+    "toolbar.link": "ссылка",
+    "toolbar.size": "size"
 }

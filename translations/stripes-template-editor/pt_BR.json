@@ -18,5 +18,6 @@
     "toolbar.align.center": "centralizar",
     "toolbar.align.right": "alinhar à direita",
     "toolbar.align.justify": "justificar",
-    "toolbar.link": "link"
+    "toolbar.link": "link",
+    "toolbar.size": "tamanho"
 }
