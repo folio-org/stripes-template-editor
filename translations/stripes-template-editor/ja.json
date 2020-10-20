@@ -2,7 +2,7 @@
     "addToken": "Add token",
     "close": "Close",
     "print": "Print",
-    "preview": "Preview",
+    "preview": "プレビュー",
     "toolbar.text.bold": "bold",
     "toolbar.text.italic": "italic",
     "toolbar.text.underline": "underline",
@@ -18,5 +18,6 @@
     "toolbar.align.center": "center",
     "toolbar.align.right": "right",
     "toolbar.align.justify": "justify",
-    "toolbar.link": "link"
+    "toolbar.link": "link",
+    "toolbar.size": "size"
 }

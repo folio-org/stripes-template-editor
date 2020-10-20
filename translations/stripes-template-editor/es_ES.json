@@ -18,5 +18,6 @@
     "toolbar.align.center": "center",
     "toolbar.align.right": "right",
     "toolbar.align.justify": "justify",
-    "toolbar.link": "link"
+    "toolbar.link": "link",
+    "toolbar.size": "size"
 }
