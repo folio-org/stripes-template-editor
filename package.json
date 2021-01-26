@@ -1,6 +1,6 @@
 {
   "name": "@folio/stripes-template-editor",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Provides an embedding of the Quill template editor",
   "repository": "folio-org/stripes-template-editor",
   "publishConfig": {
@@ -29,7 +29,7 @@
     "react-quill": "^1.2.7"
   },
   "peerDependencies": {
-    "@folio/stripes": "^5.0.0",
+    "@folio/stripes": "^6.0.0",
     "react": "*",
     "react-intl": "^5.7.0"
   }
