@@ -61,10 +61,12 @@ class TemplateEditor extends React.Component {
     super(props);
 
     this.quill = React.createRef();
+    this.quillId = `template-editor-${new Date().getTime()}`;
+    this.quillToolbarId = `${this.quillId}-toolbar`;
 
     this.modules = {
       toolbar: {
-        container: '#toolbar',
+        container: `#${this.quillToolbarId}`,
         handlers: {
           token: this.openTokenDialog,
         }
@@ -207,9 +209,9 @@ class TemplateEditor extends React.Component {
             <Row>
               <Col xs={12}>
                 <div {... invalid ? { className: css.error } : {}}>
-                  <EditorToolbar />
+                  <EditorToolbar id={this.quillToolbarId} />
                   <ReactQuill
-                    id="template-editor"
+                    id={this.quillId}
                     className={css.editor}
                     value={value}
                     ref={this.quill}
