@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactQuill, { Quill } from 'react-quill';
+import uuid from 'uuid';
 
 import {
   isNull,
@@ -61,8 +62,8 @@ class TemplateEditor extends React.Component {
     super(props);
 
     this.quill = React.createRef();
-    this.quillId = `template-editor-${new Date().getTime()}`;
-    this.quillToolbarId = `${this.quillId}-toolbar`;
+    this.quillId = uuid();
+    this.quillToolbarId = uuid();
 
     this.modules = {
       toolbar: {
