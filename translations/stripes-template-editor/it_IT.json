@@ -5,7 +5,7 @@
     "preview": "Anteprima",
     "toolbar.text.bold": "grassetto",
     "toolbar.text.italic": "corsivo",
-    "toolbar.text.underline": "underline",
+    "toolbar.text.underline": "sottolineare",
     "toolbar.list.ordered": "lista ordinata",
     "toolbar.list.bullet": "elenco puntato",
     "toolbar.indent.decrease": "diminuisci rientro",
@@ -19,5 +19,5 @@
     "toolbar.align.right": "destra",
     "toolbar.align.justify": "giustifica",
     "toolbar.link": "collegamento",
-    "toolbar.size": "size"
+    "toolbar.size": "dimensione"
 }
