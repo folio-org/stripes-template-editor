@@ -5,12 +5,13 @@ import {
 } from 'react-intl';
 
 const EditorToolbar = ({
+  id,
   intl: {
     formatMessage,
   }
 }) => {
   return (
-    <div id="toolbar">
+    <div id={id}>
       <span className="ql-formats">
         <button
           type="button"
@@ -127,6 +128,7 @@ const EditorToolbar = ({
 };
 
 EditorToolbar.propTypes = {
+  id: PropTypes.string,
   intl: PropTypes.object,
 };
 
