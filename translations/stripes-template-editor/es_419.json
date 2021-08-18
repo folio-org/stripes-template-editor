@@ -5,7 +5,7 @@
     "preview": "Preview",
     "toolbar.text.bold": "bold",
     "toolbar.text.italic": "italic",
-    "toolbar.text.underline": "underline",
+    "toolbar.text.underline": "subrayar",
     "toolbar.list.ordered": "ordered list",
     "toolbar.list.bullet": "bullet list",
     "toolbar.indent.decrease": "decrease indent",
@@ -19,5 +19,5 @@
     "toolbar.align.right": "right",
     "toolbar.align.justify": "justify",
     "toolbar.link": "link",
-    "toolbar.size": "size"
+    "toolbar.size": "tamaño"
 }
