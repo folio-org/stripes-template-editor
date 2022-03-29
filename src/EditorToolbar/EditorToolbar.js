@@ -117,6 +117,7 @@ const EditorToolbar = ({
         <button
           data-test-teplate-editor-tokens
           type="button"
+          aria-label={formatMessage({ id: 'stripes-template-editor.toolbar.token' })}
           className="ql-token"
         >
           {'{ }'}
