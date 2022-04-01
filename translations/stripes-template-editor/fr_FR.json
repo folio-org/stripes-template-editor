@@ -19,5 +19,6 @@
     "toolbar.align.right": "droite",
     "toolbar.align.justify": "Justifier",
     "toolbar.link": "Lien",
-    "toolbar.size": "Taille"
+    "toolbar.size": "Taille",
+    "toolbar.token": "token"
 }

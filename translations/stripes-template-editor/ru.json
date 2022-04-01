@@ -19,5 +19,6 @@
     "toolbar.align.right": "вправо",
     "toolbar.align.justify": "по ширине",
     "toolbar.link": "ссылка",
-    "toolbar.size": "size"
+    "toolbar.size": "size",
+    "toolbar.token": "token"
 }
