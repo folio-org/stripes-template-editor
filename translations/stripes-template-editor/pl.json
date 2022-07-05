@@ -19,5 +19,6 @@
     "toolbar.align.right": "do prawej",
     "toolbar.align.justify": "wyjustuj",
     "toolbar.link": "połącz",
-    "toolbar.size": "rozmiar"
+    "toolbar.size": "rozmiar",
+    "toolbar.token": "token"
 }

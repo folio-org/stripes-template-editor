@@ -1,8 +1,8 @@
 {
     "addToken": "Add token",
-    "close": "閉じる",
+    "close": "Close",
     "print": "Print",
-    "preview": "プレビュー",
+    "preview": "Preview",
     "toolbar.text.bold": "bold",
     "toolbar.text.italic": "italic",
     "toolbar.text.underline": "underline",
@@ -20,5 +20,5 @@
     "toolbar.align.justify": "justify",
     "toolbar.link": "link",
     "toolbar.size": "size",
-    "toolbar.token": "token"
+    "toolbar.token": "žeton"
 }

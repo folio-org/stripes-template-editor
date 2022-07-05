@@ -1,5 +1,5 @@
 buildNPM {
-  publishModDescriptor = 'yes'
+  publishModDescriptor = 'no'
   runLint = 'yes'
   runSonarqube = false
   runTest = 'no'

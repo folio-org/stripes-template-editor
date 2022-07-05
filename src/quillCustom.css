@@ -37,3 +37,7 @@
 .ql-picker.ql-size .ql-picker-item[data-value="32px"]::before {
   font-size: var(--font-size-xx-large);
 }
+
+.ql-editor li::before {
+  text-indent: 0;
+}
