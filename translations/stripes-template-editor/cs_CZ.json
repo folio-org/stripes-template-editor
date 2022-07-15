@@ -1,5 +1,5 @@
 {
-    "addToken": "Add token",
+    "addToken": "Přidat token",
     "close": "Close",
     "print": "Print",
     "preview": "Preview",
@@ -12,7 +12,7 @@
     "toolbar.indent.increase": "increase indent",
     "toolbar.size.small": "small",
     "toolbar.size.normal": "normal",
-    "toolbar.size.large": "large",
+    "toolbar.size.large": "velký",
     "toolbar.size.huge": "huge",
     "toolbar.align.noAlign": "no align",
     "toolbar.align.center": "center",
@@ -20,5 +20,5 @@
     "toolbar.align.justify": "justify",
     "toolbar.link": "link",
     "toolbar.size": "size",
-    "toolbar.token": "žeton"
+    "toolbar.token": "token"
 }
