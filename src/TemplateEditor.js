@@ -84,6 +84,10 @@ class TemplateEditor extends React.Component {
     };
   }
 
+  /*
+    Indent attributor overrides default one globally for TemplateEditor and Quill doesn't support formatters on instance level.
+    Plus there is no unregister functionality, so componentWillUnmount is used to restore default Quill fromatters
+  */
   componentWillUnmount() {
     QuillBlock.tagName = 'p';
 
