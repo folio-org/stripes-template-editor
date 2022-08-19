@@ -31,7 +31,7 @@ import css from './TemplateEditor.css';
 const QuillAlignStyle = Quill.import('attributors/style/align');
 const QuillSizeStyle = Quill.import('attributors/style/size');
 const QuillBlock = Quill.import('blots/block');
-const QuillIntendStyle = Quill.import('formats/indent');
+const QuillIndentStyle = Quill.import('formats/indent');
 
 Quill.register(QuillAlignStyle, true);
 Quill.register(QuillSizeStyle, true);
@@ -88,7 +88,7 @@ class TemplateEditor extends React.Component {
     QuillBlock.tagName = 'p';
 
     Quill.register(QuillBlock, true);
-    Quill.register('formats/indent', QuillIntendStyle, true);
+    Quill.register('formats/indent', QuillIndentStyle, true);
   }
 
   onChange = (value) => {
