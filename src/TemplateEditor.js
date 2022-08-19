@@ -28,15 +28,13 @@ import '!style-loader!css-loader!react-quill/dist/quill.snow.css';
 import '!style-loader!css-loader!./quillCustom.css';
 import css from './TemplateEditor.css';
 
-const AlignStyle = Quill.import('attributors/style/align');
-const SizeStyle = Quill.import('attributors/style/size');
-const Block = Quill.import('blots/block');
-Block.tagName = 'DIV';
+const QuillAlignStyle = Quill.import('attributors/style/align');
+const QuillSizeStyle = Quill.import('attributors/style/size');
+const QuillBlock = Quill.import('blots/block');
+const QuillIndentStyle = Quill.import('formats/indent');
 
-Quill.register(IndentStyle, true);
-Quill.register(AlignStyle, true);
-Quill.register(SizeStyle, true);
-Quill.register(Block, true);
+Quill.register(QuillAlignStyle, true);
+Quill.register(QuillSizeStyle, true);
 
 class TemplateEditor extends React.Component {
   static propTypes = {
@@ -60,6 +58,11 @@ class TemplateEditor extends React.Component {
   constructor(props) {
     super(props);
 
+    QuillBlock.tagName = 'div';
+
+    Quill.register(QuillBlock, true);
+    Quill.register('formats/indent', IndentStyle, true);
+
     this.quill = React.createRef();
 
     this.modules = {
@@ -79,6 +82,17 @@ class TemplateEditor extends React.Component {
       showTokensDialog: false,
       cursorPosition: null,
     };
+  }
+
+  /*
+    Indent attributor overrides default one globally for TemplateEditor and Quill doesn't support formatters on instance level.
+    Plus there is no unregister functionality, so componentWillUnmount is used to restore default Quill fromatters
+  */
+  componentWillUnmount() {
+    QuillBlock.tagName = 'p';
+
+    Quill.register(QuillBlock, true);
+    Quill.register('formats/indent', QuillIndentStyle, true);
   }
 
   onChange = (value) => {
