@@ -1,12 +1,14 @@
 # Change history for stripes-template-editor
 
-## 3.1.0 IN PROGRESS
+## [3.1.0](https://github.com/folio-org/stripes-template-editor/tree/v3.1.0) (2022-10-25)
+[Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.0.0...v3.1.0)
 
 * Correctly display numbers. Refs FOLIO-3250.
 * Provide missing `aria-label` attribute to tokens button. Refs UICIRC-428.
 * Correctly format `ol`/`ul` values. Refs STRIPES-810.
 * use tab key to create indented lists. Refs UINOTES-134.
 * Provide `@folio/stripes` `v7` compatibility alongside `v6`. Refs STRIPES-827.
+* Use a unique DOM `id` per editor, allowing multiple editors simultaneously.
 
 ## [3.0.0](https://github.com/folio-org/stripes-template-editor/tree/v3.0.0) (2021-01-26)
 [Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v2.0.0...v3.0.0)
