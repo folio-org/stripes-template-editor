@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactQuill, { Quill } from 'react-quill';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 import {
   isNull,
@@ -65,8 +65,8 @@ class TemplateEditor extends React.Component {
     Quill.register('formats/indent', IndentStyle, true);
 
     this.quill = React.createRef();
-    this.quillId = uuid();
-    this.quillToolbarId = uuid();
+    this.quillId = uuidv4();
+    this.quillToolbarId = uuidv4();
 
     this.modules = {
       toolbar: {
