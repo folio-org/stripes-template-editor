@@ -1,4 +1,4 @@
-# Change history for ui-users
+# Change history for stripes-template-editor
 
 ## 3.1.0 IN PROGRESS
 
