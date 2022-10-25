@@ -8,6 +8,7 @@
 * Correctly format `ol`/`ul` values. Refs STRIPES-810.
 * use tab key to create indented lists. Refs UINOTES-134.
 * Provide `@folio/stripes` `v7` compatibility alongside `v6`. Refs STRIPES-827.
+* Use a unique DOM `id` per editor, allowing multiple editors simultaneously.
 
 ## [3.0.0](https://github.com/folio-org/stripes-template-editor/tree/v3.0.0) (2021-01-26)
 [Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v2.0.0...v3.0.0)
