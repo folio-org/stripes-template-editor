@@ -65,8 +65,8 @@ class TemplateEditor extends React.Component {
     Quill.register('formats/indent', IndentStyle, true);
 
     this.quill = React.createRef();
-    this.quillId = uuidv4();
-    this.quillToolbarId = uuidv4();
+    this.quillId = `rte-${uuidv4()}`;
+    this.quillToolbarId = `rte-toolbar-${uuidv4()}`;
 
     this.modules = {
       toolbar: {
