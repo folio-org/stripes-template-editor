@@ -1,6 +1,7 @@
 # Change history for stripes-template-editor
 
-## 3.1.1 IN PROGRESS
+## [3.1.1](https://github.com/folio-org/stripes-template-editor/tree/v3.1.1) (2022-11-14)
+[Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.0.1...v3.1.1)
 
 * Prefix UUIDs used for HTML `id` attributes to guarantee a non-numeric-prefix. Refs STRIPES-832.
 
