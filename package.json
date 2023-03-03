@@ -1,6 +1,6 @@
 {
   "name": "@folio/stripes-template-editor",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "Provides an embedding of the Quill template editor",
   "repository": "folio-org/stripes-template-editor",
   "publishConfig": {
@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@folio/eslint-config-stripes": "^5.1.0",
-    "@folio/stripes": "^7.4.100000143",
+    "@folio/stripes": "^8.0.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.2.1"
   },
@@ -29,7 +29,7 @@
     "uuid": "^8.3.2"
   },
   "peerDependencies": {
-    "@folio/stripes": "^6.0.0 || ^7.0.0",
+    "@folio/stripes": "^6.0.0 || ^7.0.0 || ^8.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-intl": "^5.7.0"
