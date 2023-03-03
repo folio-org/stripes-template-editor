@@ -1,6 +1,7 @@
 # Change history for stripes-template-editor
 
-## 3.2.0 IN PROGRESS
+## [3.2.0](https://github.com/folio-org/stripes-template-editor/tree/v3.2.0) (2023-03-03)
+[Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.1.1...v3.2.0)
 
 * Provide `@folio/stripes` `v8` compatibility. Refs STRIPES-849.
 
