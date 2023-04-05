@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   noop,
   isEmpty,
+  isFunction,
 } from 'lodash';
 
 import { Checkbox } from '@folio/stripes/components';
@@ -19,6 +20,10 @@ class TokensSection extends Component {
       enabled: PropTypes.bool,
       label: PropTypes.node,
       tag: PropTypes.string,
+      isDisableLoop: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.oneOf([null]),
+      ]),
     }),
     onLoopSelect: PropTypes.func,
     onSectionInit: PropTypes.func.isRequired,
@@ -31,6 +36,7 @@ class TokensSection extends Component {
       enabled: false,
       label: null,
       tag: null,
+      isDisableLoop: null,
     },
     selectedCategory: '',
     onLoopSelect: noop,
@@ -69,6 +75,20 @@ class TokensSection extends Component {
 
     onLoopSelect(section, checked);
   };
+
+  isDisableLoop = () => {
+    const {
+      selectedCategory,
+      loopConfig: {
+        tag,
+        isDisableLoop,
+      }
+    } = this.props;
+
+    return isFunction(isDisableLoop)
+      ? isDisableLoop(selectedCategory, tag, this.disableLoop)
+      : this.disableLoop;
+  }
 
   render() {
     const {
@@ -119,7 +139,7 @@ class TokensSection extends Component {
                 labelClass={this.disableLoop ? css.disabledItem : ''}
                 value={tag}
                 label={<strong>{label}</strong>}
-                disabled={this.disableLoop}
+                disabled={this.isDisableLoop()}
                 onChange={this.onLoopChange}
               />
             </>
