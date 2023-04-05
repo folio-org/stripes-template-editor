@@ -20,7 +20,7 @@ class TokensSection extends Component {
       enabled: PropTypes.bool,
       label: PropTypes.node,
       tag: PropTypes.string,
-      isDisableLoop: PropTypes.oneOfType([
+      isDisabledLoop: PropTypes.oneOfType([
         PropTypes.func,
         PropTypes.oneOf([null]),
       ]),
@@ -36,7 +36,7 @@ class TokensSection extends Component {
       enabled: false,
       label: null,
       tag: null,
-      isDisableLoop: null,
+      isDisabledLoop: null,
     },
     selectedCategory: '',
     onLoopSelect: noop,
@@ -76,17 +76,17 @@ class TokensSection extends Component {
     onLoopSelect(section, checked);
   };
 
-  isDisableLoop = () => {
+  isDisabledLoop = () => {
     const {
       selectedCategory,
       loopConfig: {
         tag,
-        isDisableLoop,
+        isDisabledLoop,
       }
     } = this.props;
 
-    return isFunction(isDisableLoop)
-      ? isDisableLoop(selectedCategory, tag, this.disableLoop)
+    return isFunction(isDisabledLoop)
+      ? isDisabledLoop(selectedCategory, tag, this.disableLoop)
       : this.disableLoop;
   }
 
@@ -139,7 +139,7 @@ class TokensSection extends Component {
                 labelClass={this.disableLoop ? css.disabledItem : ''}
                 value={tag}
                 label={<strong>{label}</strong>}
-                disabled={this.isDisableLoop()}
+                disabled={this.isDisabledLoop()}
                 onChange={this.onLoopChange}
               />
             </>
