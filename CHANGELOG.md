@@ -5,6 +5,7 @@
 * Should have possible handle disabled state for loop by passed function. Refs STRIPES-856.
 * Bump Node.js to v18 in CI. Refs STRIPES-887.
 * Support React v18. Refs STRIPES-886.
+* Support react-intl v6. Refs STRIPES-885.
 
 ## [3.2.0](https://github.com/folio-org/stripes-template-editor/tree/v3.2.0) (2023-03-03)
 [Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.1.1...v3.2.0)
