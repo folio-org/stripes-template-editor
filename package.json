@@ -1,6 +1,6 @@
 {
   "name": "@folio/stripes-template-editor",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "Provides an embedding of the Quill template editor",
   "repository": "folio-org/stripes-template-editor",
   "publishConfig": {
