@@ -2,6 +2,11 @@
 
 ## IN PROGRESS
 
+* upgrade `react-quill` version to `2.0.0`.
+
+## [3.3.0](https://github.com/folio-org/stripes-template-editor/tree/v3.2.0) (2023-10-13)
+[Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.2.0...v3.3.0)
+
 * Should have possible handle disabled state for loop by passed function. Refs STRIPES-856.
 * Bump Node.js to v18 in CI. Refs STRIPES-887.
 * Support React v18. Refs STRIPES-886.
