@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Barcode from 'react-barcode';
 import HtmlToReact, { Parser } from 'html-to-react';
 import { FormattedMessage } from 'react-intl';
+import * as DOMPurify from 'dompurify';
 
 import {
   Button,
@@ -103,7 +104,8 @@ class PreviewModal extends React.Component {
     } = this.props;
 
     const tmpl = templateResolver(previewTemplate);
-    const componentStr = tmpl(previewFormat);
+    const componentStr = DOMPurify.sanitize(tmpl(previewFormat));
+
     const contentComponent = this.parser.parseWithInstructions(componentStr, () => true, this.rules);
 
     return (
