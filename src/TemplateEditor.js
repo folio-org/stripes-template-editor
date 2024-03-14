@@ -108,7 +108,7 @@ class TemplateEditor extends React.Component {
       this.quill.current.editor.setSelection(cursorPosition);
       this.setState({ cursorPosition: null });
     }
-  }
+  };
 
   onBlur = () => {
     const {
@@ -119,15 +119,15 @@ class TemplateEditor extends React.Component {
     } = this.props;
 
     onBlur(value);
-  }
+  };
 
   openPreviewDialog = () => {
     this.setState({ openDialog: true });
-  }
+  };
 
   closePreviewDialog = () => {
     this.setState({ openDialog: false });
-  }
+  };
 
   openTokenDialog = () => {
     this.setState({ showTokensDialog: true });

@@ -88,7 +88,7 @@ class TokensSection extends Component {
     return isFunction(isDisabledLoop)
       ? isDisabledLoop(selectedCategory, tag, this.disableLoop)
       : this.disableLoop;
-  }
+  };
 
   render() {
     const {
