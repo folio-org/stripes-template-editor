@@ -1,10 +1,14 @@
 # Change history for stripes-template-editor
 
+## [3.3.2](https://github.com/folio-org/stripes-template-editor/tree/v3.3.2) (2024-03-25)
+[Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.3.1...v3.3.2)
+
+* Push template content through DOMPurify to avoid XSS vulnerabilities. Refs STRIPES-908.
+
 ## [3.3.1](https://github.com/folio-org/stripes-template-editor/tree/v3.3.1) (2023-11-08)
 [Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.3.0...v3.3.1)
 
 * upgrade `react-quill` version to `2.0.0`. Refs STRIPES-896.
-* Push template content through DOMPurify to avoid XSS vulnerabilities. Refs STRIPES-908.
 
 ## [3.3.0](https://github.com/folio-org/stripes-template-editor/tree/v3.2.0) (2023-10-13)
 [Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.2.0...v3.3.0)
