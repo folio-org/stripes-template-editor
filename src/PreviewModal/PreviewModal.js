@@ -104,7 +104,7 @@ class PreviewModal extends React.Component {
     } = this.props;
 
     const tmpl = templateResolver(previewTemplate);
-    const componentStr = DOMPurify.sanitize(tmpl(previewFormat));
+    const componentStr = DOMPurify.sanitize(tmpl(previewFormat), { ADD_TAGS: ['Barcode'] });
 
     const contentComponent = this.parser.parseWithInstructions(componentStr, () => true, this.rules);
 
