@@ -1,5 +1,10 @@
 # Change history for stripes-template-editor
 
+## [3.3.3](https://github.com/folio-org/stripes-template-editor/tree/v3.3.3) (2024-04-01)
+[Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.3.2...v3.3.3)
+
+* Specifically permit `<Barcode>`; otherwise dompurify will strip it as an unknown tag. Refs STRIPES-908.
+
 ## [3.3.2](https://github.com/folio-org/stripes-template-editor/tree/v3.3.2) (2024-03-25)
 [Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.3.1...v3.3.2)
 
