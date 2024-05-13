@@ -233,6 +233,7 @@ class TemplateEditor extends React.Component {
                     modules={this.modules}
                     onChange={this.onChange}
                     onBlur={this.onBlur}
+                    bounds={`#${this.quillId}`}
                   />
                 </div>
               </Col>
