@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactQuill, { Quill } from 'react-quill';
 import { v4 as uuidv4 } from 'uuid';
-
+import * as DOMPurify from 'dompurify';
 import {
   isNull,
   forEach,
@@ -228,7 +228,7 @@ class TemplateEditor extends React.Component {
                   <ReactQuill
                     id={this.quillId}
                     className={css.editor}
-                    value={value}
+                    value={DOMPurify.sanitize(value, { ADD_TAGS: ['Barcode'] })}
                     ref={this.quill}
                     modules={this.modules}
                     onChange={this.onChange}
