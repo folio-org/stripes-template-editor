@@ -1,5 +1,9 @@
 # Change history for stripes-template-editor
 
+## 3.3.4 IN PROGRESS
+
+* Sanitize template string before passing it to the editor component. Refs STRIPES-933.
+
 ## [3.3.3](https://github.com/folio-org/stripes-template-editor/tree/v3.3.3) (2024-04-01)
 [Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.3.2...v3.3.3)
 
