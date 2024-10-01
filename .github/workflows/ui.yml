@@ -10,4 +10,5 @@ jobs:
     secrets: inherit
     with:
       jest-enabled: false
+      sonar-enabled: false
 
