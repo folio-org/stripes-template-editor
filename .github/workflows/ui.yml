@@ -11,4 +11,6 @@ jobs:
     with:
       jest-enabled: false
       sonar-enabled: false
+      generate-module-descriptor: false
+      publish-module-descriptor: false
 
