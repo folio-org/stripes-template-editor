@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactQuill, { Quill } from 'react-quill';
 import { v4 as uuidv4 } from 'uuid';
-import * as DOMPurify from 'dompurify';
+import DOMPurify from 'dompurify';
 import {
   isNull,
   forEach,

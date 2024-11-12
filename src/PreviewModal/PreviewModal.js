@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Barcode from 'react-barcode';
 import HtmlToReact, { Parser } from 'html-to-react';
 import { FormattedMessage } from 'react-intl';
-import * as DOMPurify from 'dompurify';
+import DOMPurify from 'dompurify';
 
 import {
   Button,
