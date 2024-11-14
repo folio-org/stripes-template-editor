@@ -2,11 +2,18 @@
 
 ## IN PROGRESS
 
+## [3.4.1](https://github.com/folio-org/stripes-template-editor/tree/v3.4.1) (2024-11-13)
+[Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.4.0...v3.4.1)
+
+* Fix `DOMPurify` import. Refs STRIPES-947.
+
+## [3.4.0](https://github.com/folio-org/stripes-template-editor/tree/v3.4.0) (2024-10-15)
+[Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.3.4...v3.4.0)
+
 * upgrade `react-quill` version to `2.0.0`. Refs STRIPES-896.
 * Push template content through DOMPurify to avoid XSS vulnerabilities. Refs STRIPES-908.
 * Add a `bound` template option with template ID to fix the overflowing Link tooltip issue. Refs STRIPES-918.
 * Sanitize template string before passing it to the editor component. Refs STRIPES-933.
-* Fix DOMPurify import. Refs STRIPES-947.
 
 ## [3.3.0](https://github.com/folio-org/stripes-template-editor/tree/v3.2.0) (2023-10-13)
 [Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.2.0...v3.3.0)
