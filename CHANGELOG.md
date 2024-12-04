@@ -1,5 +1,9 @@
 # Change history for stripes-template-editor
 
+## 3.4.2 IN PROGRESS
+
+* Only change `value` prop to `ReactQuill` if `DOMPurify` made changes. Refs STRIPES-953.
+
 ## [3.4.1](https://github.com/folio-org/stripes-template-editor/tree/v3.4.1) (2024-11-13)
 [Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.4.0...v3.4.1)
 

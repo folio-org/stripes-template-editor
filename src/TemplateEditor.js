@@ -212,6 +212,17 @@ class TemplateEditor extends React.Component {
 
     const invalid = (touched || submitFailed) && !valid && !showTokensDialog;
 
+    // DOMPurify reverses the order of attributes, so any supplied tags with attributes will ALWAYS
+    // have different output - so we just check for any changes DOMPurify might have made before using
+    // the string it produces.
+    let appliedValue = DOMPurify.sanitize(value, { ADD_TAGS: ['Barcode'], ADD_ATTR: ['target', 'rel'] });
+    if (value !== appliedValue) {
+      const removed = DOMPurify.removed.map((item) => item.attribute?.name || item.element?.outerHTML);
+      if (removed && removed.length === 0) {
+        appliedValue = value;
+      }
+    }
+
     return (
       <>
         <Row>
@@ -228,7 +239,7 @@ class TemplateEditor extends React.Component {
                   <ReactQuill
                     id={this.quillId}
                     className={css.editor}
-                    value={DOMPurify.sanitize(value, { ADD_TAGS: ['Barcode'] })}
+                    value={appliedValue}
                     ref={this.quill}
                     modules={this.modules}
                     onChange={this.onChange}
