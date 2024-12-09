@@ -19,6 +19,7 @@ import EditorToolbar from './EditorToolbar';
 import PreviewModal from './PreviewModal';
 import ControlHeader from './ControlHeader';
 import ValidationContainer from './ValidationContainer';
+import { sanitize } from './sanitizer';
 
 import tokensReducer from './tokens-reducer';
 import IndentStyle from './Attributors/indent';
@@ -212,16 +213,7 @@ class TemplateEditor extends React.Component {
 
     const invalid = (touched || submitFailed) && !valid && !showTokensDialog;
 
-    // DOMPurify reverses the order of attributes, so any supplied tags with attributes will ALWAYS
-    // have different output - so we just check for any changes DOMPurify might have made before using
-    // the string it produces.
-    let appliedValue = DOMPurify.sanitize(value, { ADD_TAGS: ['Barcode'], ADD_ATTR: ['target', 'rel'] });
-    if (value !== appliedValue) {
-      const removed = DOMPurify.removed.map((item) => item.attribute?.name || item.element?.outerHTML);
-      if (removed && removed.length === 0) {
-        appliedValue = value;
-      }
-    }
+    const appliedValue = sanitize(value);
 
     return (
       <>
