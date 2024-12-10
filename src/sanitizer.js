@@ -1,8 +1,8 @@
 import DOMPurify from 'dompurify';
 
-export const DOMPURIFY_CONFIG = { ADD_TAGS: ['Barcode'], ADD_ATTR: ['target', 'rel'] };
+export const SANITIZE_CONFIG = { ADD_TAGS: ['Barcode'], ADD_ATTR: ['target', 'rel'] };
 
-export const sanitize = (value, config = DOMPURIFY_CONFIG) => {
+export const sanitize = (value, config = SANITIZE_CONFIG) => {
   // since DOMPurify has a known issue of reversing the order of attributes in perfectly admissible HTML
   // we check to see if the value was affected - and if not, we just return the unaffected value.
   let resultValue = DOMPurify.sanitize(value, config);
