@@ -12,7 +12,7 @@ This is a NPM module to aid with embedding the Quill editor in [Stripes](https:/
 
 ## Value Sanitization
 
-In any case where a user-created HTML string will be rendered directly to the UI, it should be sanitized to eliminate any issues with malformed tags/attributes. This library exports a `sanitize` function that should be used within the ui-module prior to passing the value to the form. The function accepts the value to be rendered and an optional overriding configuration for the sanitization library.
+In any case where a user-created HTML string will be rendered directly to the UI, it should be sanitized to eliminate any issues with malformed tags/attributes. This library exports a `sanitize` function that should be used within the ui-module prior to passing the value to the form. The function accepts the value to be rendered and an optional overriding configuration for the sanitization library. It will return the sanitized string if any removals were necessary, otherwise it will return the original parameter value.
 
 ```
 import { sanitize,  TemplateEditor } from '@folio/stripes-template-editor'
