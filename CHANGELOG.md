@@ -1,6 +1,7 @@
 # Change history for stripes-template-editor
 
-## 3.4.2 IN PROGRESS
+## [3.4.2](https://github.com/folio-org/stripes-template-editor/tree/v3.4.2) (2025-01-14)
+[Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.4.1...v3.4.2)
 
 * Only change `value` prop to `ReactQuill` if `DOMPurify` made changes. Refs STRIPES-953.
 * Export `sanitize` function for module-level value sanitization. Refs STRIPES-953 also.
