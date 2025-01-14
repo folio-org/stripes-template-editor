@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactQuill, { Quill } from 'react-quill';
 import { v4 as uuidv4 } from 'uuid';
-import DOMPurify from 'dompurify';
+
 import {
   isNull,
   forEach,
@@ -19,6 +19,7 @@ import EditorToolbar from './EditorToolbar';
 import PreviewModal from './PreviewModal';
 import ControlHeader from './ControlHeader';
 import ValidationContainer from './ValidationContainer';
+import { sanitize } from './sanitizer';
 
 import tokensReducer from './tokens-reducer';
 import IndentStyle from './Attributors/indent';
@@ -212,6 +213,8 @@ class TemplateEditor extends React.Component {
 
     const invalid = (touched || submitFailed) && !valid && !showTokensDialog;
 
+    const appliedValue = sanitize(value);
+
     return (
       <>
         <Row>
@@ -228,7 +231,7 @@ class TemplateEditor extends React.Component {
                   <ReactQuill
                     id={this.quillId}
                     className={css.editor}
-                    value={DOMPurify.sanitize(value, { ADD_TAGS: ['Barcode'] })}
+                    value={appliedValue}
                     ref={this.quill}
                     modules={this.modules}
                     onChange={this.onChange}
