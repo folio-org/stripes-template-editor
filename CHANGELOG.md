@@ -1,8 +1,10 @@
 # Change history for stripes-template-editor
 
 ## IN PROGRESS
+
 * Only change `value` prop to `ReactQuill` if `DOMPurify` made changes. Refs STRIPES-953.
 * Export `sanitize` function for module-level value sanitization. Refs STRIPES-953 also.
+* Support `react-intl` `v7`, compile translations. Refs STRIPES-965.
 
 ## [3.4.1](https://github.com/folio-org/stripes-template-editor/tree/v3.4.1) (2024-11-13)
 [Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.4.0...v3.4.1)
