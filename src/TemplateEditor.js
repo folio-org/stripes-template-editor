@@ -146,7 +146,14 @@ class TemplateEditor extends React.Component {
     }
   };
 
-  // Note: this does not attempt to support `isLoopSelected`, as I can't find a way to exercise that
+  // Note: this does not attempt to support `isLoopSelected`.
+  //
+  // The immediate need for HTML editing is in the context of staff
+  // slips, which do not seem to make use of loops. When we come to
+  // the point of needing HTML editing for other kinds of templates
+  // that use them, that will give us the opportunity (and motivation)
+  // for writing and running the relevant new code.
+  //
   insertTokensIntoHtml = (tokens = {}) => {
     const text = Object.keys(tokens).map(key => tokens[key].tokens.map(s => `{{${s}}}`).join('')).join('');
 
