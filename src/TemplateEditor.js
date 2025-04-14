@@ -170,8 +170,15 @@ class TemplateEditor extends React.Component {
 
     requestAnimationFrame(() => {
       elem.focus();
-      // eslint-disable-next-line no-multi-assign
-      elem.selectionStart = elem.selectionEnd = start + text.length;
+      // In a rational world, we would just do a multiple assignment
+      // here, but someone somewhere decided that ESLint ought to
+      // whine about that, because of course an automated tool has
+      // better taste than an actual programmer with 45 years'
+      // experience, so instead we will express the intention in a
+      // more verbose and less clear way to satisfy the hungry gods of
+      // ESLint. Truly, this is an age of wonders.
+      elem.selectionStart = start + text.length;
+      elem.selectionStart = start + text.length;
     });
   };
 
