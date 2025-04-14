@@ -146,6 +146,11 @@ class TemplateEditor extends React.Component {
     }
   };
 
+  // insertTokensIntoHtml() and insertTokensIntoQuill() are equivalent
+  // functions used to insert tokens into the HTML of the TextArea or
+  // into the Quill editor -- the appropriate function is called
+  // depending on which kind of editor is in use.
+  //
   // Note: this does not attempt to support `isLoopSelected`.
   //
   // The immediate need for HTML editing is in the context of staff
