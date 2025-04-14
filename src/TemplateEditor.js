@@ -156,12 +156,11 @@ class TemplateEditor extends React.Component {
     const newValue = elem.value.substring(0, start) + text + elem.value.substring(end);
     this.props.input.onChange(newValue);
 
-    // XXX The rest of this function seems to no-op
-    // Move the cursor to just after the inserted text
-    const newCursorPos = start + text.length;
-    // eslint-disable-next-line no-multi-assign
-    elem.selectionStart = elem.selectionEnd = newCursorPos;
-    elem.focus();
+    requestAnimationFrame(() => {
+      elem.focus();
+      // eslint-disable-next-line no-multi-assign
+      elem.selectionStart = elem.selectionEnd = start + text.length;
+    });
   };
 
   insertTokensIntoQuill = (tokens = {}) => {
