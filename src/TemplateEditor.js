@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl } from 'react-intl';
 import ReactQuill, { Quill } from 'react-quill';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -52,6 +53,7 @@ class TemplateEditor extends React.Component {
     required: PropTypes.bool,
     selectedCategory: PropTypes.string,
     editAsHtml: PropTypes.bool,
+    intl: PropTypes.object,
   };
 
   static defaultProps = {
@@ -254,6 +256,7 @@ class TemplateEditor extends React.Component {
       selectedCategory,
       name,
       editAsHtml,
+      intl: { formatMessage }
     } = this.props;
 
     const invalid = (touched || submitFailed) && !valid && !showTokensDialog;
@@ -264,8 +267,9 @@ class TemplateEditor extends React.Component {
       <Button
         bottomMargin0
         onClick={this.openTokenDialog}
+        aria-label={formatMessage({ id: 'stripes-template-editor.toolbar.token' })}
       >
-        {'{}'}
+        {'{ }'}
       </Button>
     );
 
@@ -330,4 +334,4 @@ class TemplateEditor extends React.Component {
   }
 }
 
-export default TemplateEditor;
+export default injectIntl(TemplateEditor);
