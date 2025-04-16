@@ -168,7 +168,7 @@ class TemplateEditor extends React.Component {
     const start = elem.selectionStart;
     const end = elem.selectionEnd;
     const newValue = elem.value.substring(0, start) + text + elem.value.substring(end);
-    this.props.input.onChange(newValue);
+    this.props.input.onChange(sanitize(newValue));
 
     requestAnimationFrame(() => {
       elem.focus();
@@ -291,7 +291,7 @@ class TemplateEditor extends React.Component {
                     ref={this.textAreaRef}
                     name={name}
                     value={value}
-                    onChange={this.props.input.onChange}
+                    onChange={newValue => this.props.input.onChange(sanitize(newValue))}
                     rows="12"
                   /> :
                   <div {... invalid ? { className: css.error } : {}}>
