@@ -43,6 +43,7 @@ ControlHeader.propTypes = {
   label: PropTypes.node.isRequired,
   required: PropTypes.bool.isRequired,
   onPreviewClick: PropTypes.func.isRequired,
+  extraButton: PropTypes.object,
 };
 
 export default ControlHeader;
