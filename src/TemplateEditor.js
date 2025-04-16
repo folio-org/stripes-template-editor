@@ -152,14 +152,24 @@ class TemplateEditor extends React.Component {
   // functions used to insert tokens into the HTML of the TextArea or
   // into the Quill editor -- the appropriate function is called
   // depending on which kind of editor is in use.
+
+  // Note: the HTML version does not attempt to support
+  // `isLoopSelected`.  The immediate need for HTML editing is in the
+  // context of staff slips, which do not make use of loops. When we
+  // come to the point of needing HTML editing for other kinds of
+  // templates that use them, that will give us the opportunity (and
+  // motivation) for writing and running the relevant new code.
   //
-  // Note: this does not attempt to support `isLoopSelected`.
-  //
-  // The immediate need for HTML editing is in the context of staff
-  // slips, which do not seem to make use of loops. When we come to
-  // the point of needing HTML editing for other kinds of templates
-  // that use them, that will give us the opportunity (and motivation)
-  // for writing and running the relevant new code.
+  // Because the textarea is controlled by react-final-form, we have
+  // to use its API (the `input.onChange` prop) to set the value,
+  // rather than just manipulating the DOM element. But there is no
+  // final-form API for reading the selection start and end, or for
+  // setting the cursor position. (These are considered state rather
+  // than value, and final-form is concerned only with values.)
+  // Consequently the value in the DOM element doesn't get set until
+  // final-form has had a chance to operate: hence the use of
+  // requestAnimationFrame to delay the positioning of the cursor
+  // until that has happened.
   //
   insertTokensIntoHtml = (tokens = {}) => {
     const text = Object.keys(tokens).map(key => tokens[key].tokens.map(s => `{{${s}}}`).join('')).join('');
