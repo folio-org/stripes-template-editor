@@ -168,7 +168,7 @@ class TemplateEditor extends React.Component {
     const start = elem.selectionStart;
     const end = elem.selectionEnd;
     const newValue = elem.value.substring(0, start) + text + elem.value.substring(end);
-    this.props.input.onChange(sanitize(newValue));
+    this.props.input.onChange(newValue);
 
     requestAnimationFrame(() => {
       elem.focus();
