@@ -180,7 +180,7 @@ class TemplateEditor extends React.Component {
       // more verbose and less clear way to satisfy the hungry gods of
       // ESLint. Truly, this is an age of wonders.
       elem.selectionStart = start + text.length;
-      elem.selectionStart = start + text.length;
+      elem.selectionEnd = start + text.length;
     });
   };
 
