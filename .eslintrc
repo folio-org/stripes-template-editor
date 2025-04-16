@@ -1,7 +1,4 @@
 {
   "parser": "@babel/eslint-parser",
-  "extends": "@folio/eslint-config-stripes",
-  "rules": {
-    "react/forbid-prop-types": [1, { "forbid": ["any", "array"] }]
-  }
+  "extends": "@folio/eslint-config-stripes"
 }
