@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl } from 'react-intl';
 import ReactQuill, { Quill } from 'react-quill';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -12,6 +13,8 @@ import {
 import {
   Col,
   Row,
+  Button,
+  TextArea,
 } from '@folio/stripes/components';
 
 import TokensModal from './TokensModal';
@@ -49,12 +52,15 @@ class TemplateEditor extends React.Component {
     printable: PropTypes.bool,
     required: PropTypes.bool,
     selectedCategory: PropTypes.string,
+    editAsHtml: PropTypes.bool,
+    intl: PropTypes.object,
   };
 
   static defaultProps = {
     printable: false,
     required: false,
     selectedCategory: '',
+    editAsHtml: false,
   };
 
   constructor(props) {
@@ -68,6 +74,7 @@ class TemplateEditor extends React.Component {
     this.quill = React.createRef();
     this.quillId = `rte-${uuidv4()}`;
     this.quillToolbarId = `rte-toolbar-${uuidv4()}`;
+    this.textAreaRef = React.createRef();
 
     this.modules = {
       toolbar: {
@@ -136,10 +143,58 @@ class TemplateEditor extends React.Component {
 
   closeTokenDialog = () => {
     this.setState({ showTokensDialog: false });
-    this.quill.current.focus();
+    if (this.quill.current) {
+      this.quill.current.focus();
+    }
   };
 
-  insertTokens = (tokens = {}) => {
+  // insertTokensIntoHtml() and insertTokensIntoQuill() are equivalent
+  // functions used to insert tokens into the HTML of the TextArea or
+  // into the Quill editor -- the appropriate function is called
+  // depending on which kind of editor is in use.
+
+  // Note: the HTML version does not attempt to support
+  // `isLoopSelected`.  The immediate need for HTML editing is in the
+  // context of staff slips, which do not make use of loops. When we
+  // come to the point of needing HTML editing for other kinds of
+  // templates that use them, that will give us the opportunity (and
+  // motivation) for writing and running the relevant new code.
+  //
+  // Because the textarea is controlled by react-final-form, we have
+  // to use its API (the `input.onChange` prop) to set the value,
+  // rather than just manipulating the DOM element. But there is no
+  // final-form API for reading the selection start and end, or for
+  // setting the cursor position. (These are considered state rather
+  // than value, and final-form is concerned only with values.)
+  // Consequently the value in the DOM element doesn't get set until
+  // final-form has had a chance to operate: hence the use of
+  // requestAnimationFrame to delay the positioning of the cursor
+  // until that has happened.
+  //
+  insertTokensIntoHtml = (tokens = {}) => {
+    const text = Object.keys(tokens).map(key => tokens[key].tokens.map(s => `{{${s}}}`).join('')).join('');
+
+    const elem = document.getElementById(this.quillId);
+    const start = elem.selectionStart;
+    const end = elem.selectionEnd;
+    const newValue = elem.value.substring(0, start) + text + elem.value.substring(end);
+    this.props.input.onChange(newValue);
+
+    requestAnimationFrame(() => {
+      elem.focus();
+      // In a rational world, we would just do a multiple assignment
+      // here, but someone somewhere decided that ESLint ought to
+      // whine about that, because of course an automated tool has
+      // better taste than an actual programmer with 45 years'
+      // experience, so instead we will express the intention in a
+      // more verbose and less clear way to satisfy the hungry gods of
+      // ESLint. Truly, this is an age of wonders.
+      elem.selectionStart = start + text.length;
+      elem.selectionEnd = start + text.length;
+    });
+  };
+
+  insertTokensIntoQuill = (tokens = {}) => {
     forEach(tokens, (tokensGroup) => {
       if (tokensGroup.isLoopSelected) {
         this.insertRepeatingTokens(tokensGroup.tokens, tokensGroup.tag);
@@ -209,11 +264,24 @@ class TemplateEditor extends React.Component {
       printable,
       required,
       selectedCategory,
+      name,
+      editAsHtml,
+      intl: { formatMessage }
     } = this.props;
 
     const invalid = (touched || submitFailed) && !valid && !showTokensDialog;
 
     const appliedValue = sanitize(value);
+
+    const extraButton = !editAsHtml ? undefined : (
+      <Button
+        bottomMargin0
+        onClick={this.openTokenDialog}
+        aria-label={formatMessage({ id: 'stripes-template-editor.toolbar.token' })}
+      >
+        {'{ }'}
+      </Button>
+    );
 
     return (
       <>
@@ -223,22 +291,33 @@ class TemplateEditor extends React.Component {
               label={label}
               required={required}
               onPreviewClick={this.openPreviewDialog}
+              extraButton={extraButton}
             />
             <Row>
               <Col xs={12}>
-                <div {... invalid ? { className: css.error } : {}}>
-                  <EditorToolbar id={this.quillToolbarId} />
-                  <ReactQuill
+                {editAsHtml ?
+                  <TextArea
                     id={this.quillId}
-                    className={css.editor}
-                    value={appliedValue}
-                    ref={this.quill}
-                    modules={this.modules}
-                    onChange={this.onChange}
-                    onBlur={this.onBlur}
-                    bounds={`#${this.quillId}`}
-                  />
-                </div>
+                    ref={this.textAreaRef}
+                    name={name}
+                    value={value}
+                    onChange={newValue => this.props.input.onChange(sanitize(newValue))}
+                    rows="12"
+                  /> :
+                  <div {... invalid ? { className: css.error } : {}}>
+                    <EditorToolbar id={this.quillToolbarId} />
+                    <ReactQuill
+                      id={this.quillId}
+                      className={css.editor}
+                      value={appliedValue}
+                      ref={this.quill}
+                      modules={this.modules}
+                      onChange={this.onChange}
+                      onBlur={this.onBlur}
+                      bounds={`#${this.quillId}`}
+                    />
+                  </div>
+                }
               </Col>
             </Row>
             { invalid && <ValidationContainer error={error} /> }
@@ -257,7 +336,7 @@ class TemplateEditor extends React.Component {
           tokens={tokens}
           list={tokensList}
           selectedCategory={selectedCategory}
-          onAdd={this.insertTokens}
+          onAdd={editAsHtml ? this.insertTokensIntoHtml : this.insertTokensIntoQuill}
           onCancel={this.closeTokenDialog}
         />
       </>
@@ -265,4 +344,4 @@ class TemplateEditor extends React.Component {
   }
 }
 
-export default TemplateEditor;
+export default injectIntl(TemplateEditor);

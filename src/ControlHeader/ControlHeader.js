@@ -10,7 +10,7 @@ import {
 
 import css from './ControlHeader.css';
 
-const ControlHeader = ({ label, onPreviewClick, required }) => {
+const ControlHeader = ({ label, onPreviewClick, required, extraButton }) => {
   return (
     <Row bottom="xs">
       <Col xs={9}>
@@ -25,6 +25,7 @@ const ControlHeader = ({ label, onPreviewClick, required }) => {
       <Col xs={3}>
         <Row className={css.preview}>
           <Col>
+            {extraButton}
             <Button
               bottomMargin0
               onClick={onPreviewClick}
@@ -42,6 +43,7 @@ ControlHeader.propTypes = {
   label: PropTypes.node.isRequired,
   required: PropTypes.bool.isRequired,
   onPreviewClick: PropTypes.func.isRequired,
+  extraButton: PropTypes.object,
 };
 
 export default ControlHeader;
