@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl } from 'react-intl';
 import ReactQuill, { Quill } from 'react-quill';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -52,6 +53,7 @@ class TemplateEditor extends React.Component {
     required: PropTypes.bool,
     selectedCategory: PropTypes.string,
     editAsHtml: PropTypes.bool,
+    intl: PropTypes.object,
   };
 
   static defaultProps = {
@@ -150,14 +152,24 @@ class TemplateEditor extends React.Component {
   // functions used to insert tokens into the HTML of the TextArea or
   // into the Quill editor -- the appropriate function is called
   // depending on which kind of editor is in use.
+
+  // Note: the HTML version does not attempt to support
+  // `isLoopSelected`.  The immediate need for HTML editing is in the
+  // context of staff slips, which do not make use of loops. When we
+  // come to the point of needing HTML editing for other kinds of
+  // templates that use them, that will give us the opportunity (and
+  // motivation) for writing and running the relevant new code.
   //
-  // Note: this does not attempt to support `isLoopSelected`.
-  //
-  // The immediate need for HTML editing is in the context of staff
-  // slips, which do not seem to make use of loops. When we come to
-  // the point of needing HTML editing for other kinds of templates
-  // that use them, that will give us the opportunity (and motivation)
-  // for writing and running the relevant new code.
+  // Because the textarea is controlled by react-final-form, we have
+  // to use its API (the `input.onChange` prop) to set the value,
+  // rather than just manipulating the DOM element. But there is no
+  // final-form API for reading the selection start and end, or for
+  // setting the cursor position. (These are considered state rather
+  // than value, and final-form is concerned only with values.)
+  // Consequently the value in the DOM element doesn't get set until
+  // final-form has had a chance to operate: hence the use of
+  // requestAnimationFrame to delay the positioning of the cursor
+  // until that has happened.
   //
   insertTokensIntoHtml = (tokens = {}) => {
     const text = Object.keys(tokens).map(key => tokens[key].tokens.map(s => `{{${s}}}`).join('')).join('');
@@ -170,8 +182,15 @@ class TemplateEditor extends React.Component {
 
     requestAnimationFrame(() => {
       elem.focus();
-      // eslint-disable-next-line no-multi-assign
-      elem.selectionStart = elem.selectionEnd = start + text.length;
+      // In a rational world, we would just do a multiple assignment
+      // here, but someone somewhere decided that ESLint ought to
+      // whine about that, because of course an automated tool has
+      // better taste than an actual programmer with 45 years'
+      // experience, so instead we will express the intention in a
+      // more verbose and less clear way to satisfy the hungry gods of
+      // ESLint. Truly, this is an age of wonders.
+      elem.selectionStart = start + text.length;
+      elem.selectionEnd = start + text.length;
     });
   };
 
@@ -247,6 +266,7 @@ class TemplateEditor extends React.Component {
       selectedCategory,
       name,
       editAsHtml,
+      intl: { formatMessage }
     } = this.props;
 
     const invalid = (touched || submitFailed) && !valid && !showTokensDialog;
@@ -257,8 +277,9 @@ class TemplateEditor extends React.Component {
       <Button
         bottomMargin0
         onClick={this.openTokenDialog}
+        aria-label={formatMessage({ id: 'stripes-template-editor.toolbar.token' })}
       >
-        {'{}'}
+        {'{ }'}
       </Button>
     );
 
@@ -280,7 +301,7 @@ class TemplateEditor extends React.Component {
                     ref={this.textAreaRef}
                     name={name}
                     value={value}
-                    onChange={this.props.input.onChange}
+                    onChange={newValue => this.props.input.onChange(sanitize(newValue))}
                     rows="12"
                   /> :
                   <div {... invalid ? { className: css.error } : {}}>
@@ -323,4 +344,4 @@ class TemplateEditor extends React.Component {
   }
 }
 
-export default TemplateEditor;
+export default injectIntl(TemplateEditor);
