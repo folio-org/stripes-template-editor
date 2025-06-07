@@ -1,8 +1,8 @@
 {
-    "addToken": "Add token",
+    "addToken": "Додати токен",
     "close": "Close",
-    "print": "Print",
-    "preview": "Preview",
+    "print": "Друк",
+    "preview": "Попередній перегляд",
     "toolbar.text.bold": "bold",
     "toolbar.text.italic": "italic",
     "toolbar.text.underline": "underline",
