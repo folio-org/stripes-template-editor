@@ -1,5 +1,9 @@
 # Change history for stripes-template-editor
 
+## IN PROGRESS
+
+* Commit `yarn.lock` to avoid future supply chain attacks. Refs STRIPES-1016.
+
 ## [3.6.0](https://github.com/folio-org/stripes-template-editor/tree/v3.6.0) (IN PROGRESS)
 [Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.5.0...v3.6.0)
 
