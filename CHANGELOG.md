@@ -1,6 +1,6 @@
 # Change history for stripes-template-editor
 
-## [3.6.0](https://github.com/folio-org/stripes-template-editor/tree/v3.6.0) (IN PROGRESS)
+## [3.6.0](https://github.com/folio-org/stripes-template-editor/tree/v3.6.0) (2026-04-22)
 [Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.5.0...v3.6.0)
 
 * `<TemplateEditor>` accepts a new optional boolean prop `editAsHtml` (defaulting backwards-compatibly to false). When present and true, the editor is a simple `<TextArea>` with which the advanced user can edit the raw HTML of the template; when absent or false, the old behaviour of the Quill-based editor is used. Fixes STRIPES-974.
