@@ -8,6 +8,12 @@
   },
   "license": "Apache-2.0",
   "main": "src/index.js",
+  "stripes": {
+    "actsAs": [],
+    "optionalOkapiInterfaces": {
+      "template-engine": "2.3"
+    }
+  },
   "scripts": {
     "start": "stripes serve",
     "lint": "eslint .",

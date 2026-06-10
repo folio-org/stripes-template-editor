@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactToPrint from 'react-to-print';
 import PropTypes from 'prop-types';
-import Barcode from 'react-barcode';
-import HtmlToReact, { Parser } from 'html-to-react';
 import { FormattedMessage } from 'react-intl';
-import DOMPurify from 'dompurify';
 
 import {
   Button,
@@ -12,6 +9,8 @@ import {
 } from '@folio/stripes/components';
 
 import templateResolver from '../template-resolver';
+import buildPreviewContent from '../previewContent';
+import BackendPreview from '../BackendPreview';
 import css from './PreviewModal.css';
 
 class PreviewModal extends React.Component {
@@ -22,31 +21,20 @@ class PreviewModal extends React.Component {
     header: PropTypes.node.isRequired,
     previewFormat: PropTypes.object.isRequired,
     onClose: PropTypes.func.isRequired,
+    previewRenderer: PropTypes.oneOf(['regex', 'backend']),
+    previewContext: PropTypes.object,
   };
 
   static defaultProps = {
     previewTemplate: '',
     printable: false,
+    previewRenderer: 'regex',
   };
 
   constructor(props) {
     super(props);
 
     this.editorRef = React.createRef();
-    const processNodeDefinitions = new HtmlToReact.ProcessNodeDefinitions(React);
-    this.rules = [
-      {
-        replaceChildren: true,
-        shouldProcessNode: node => node.name === 'barcode',
-        processNode: (node, [previewValue]) => (<Barcode value={previewValue ? previewValue.trim() : ' '} />),
-      },
-      {
-        shouldProcessNode: () => true,
-        processNode: processNodeDefinitions.processDefaultNode,
-      }
-    ];
-
-    this.parser = new Parser();
   }
 
   renderFooter = () => {
@@ -101,12 +89,24 @@ class PreviewModal extends React.Component {
       previewTemplate,
       previewFormat,
       header,
+      previewRenderer,
+      previewContext,
     } = this.props;
 
-    const tmpl = templateResolver(previewTemplate);
-    const componentStr = DOMPurify.sanitize(tmpl(previewFormat), { ADD_TAGS: ['Barcode'] });
+    const regexContent = buildPreviewContent(templateResolver(previewTemplate)(previewFormat));
 
-    const contentComponent = this.parser.parseWithInstructions(componentStr, () => true, this.rules);
+    // Only mount BackendPreview while the modal is open, so we do not
+    // POST to the backend for a hidden modal. Regex stays the default
+    // and is also the fallback when the interface is unavailable.
+    const contentComponent = (previewRenderer === 'backend' && open)
+      ? (
+        <BackendPreview
+          templateBody={previewTemplate}
+          context={previewContext}
+          fallback={regexContent}
+        />
+      )
+      : regexContent;
 
     return (
       <Modal

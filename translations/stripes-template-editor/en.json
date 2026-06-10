@@ -3,6 +3,7 @@
   "close": "Close",
   "print": "Print",
   "preview": "Preview",
+  "preview.backendError": "The preview could not be rendered.",
 
   "toolbar.text.bold": "bold",
   "toolbar.text.italic": "italic",
