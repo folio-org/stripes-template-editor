@@ -5,4 +5,5 @@ node_modules
 ModuleDescriptor.json
 yarn-error.log
 artifacts
+junit.xml
 translations/stripes-template-editor/compiled

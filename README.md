@@ -82,10 +82,11 @@ body. `header`/`body`/`context` are all optional on that endpoint.
 
 * The tenant must run `mod-template-engine` providing the `template-engine`
   interface `2.3` or later (the non-persisted `/template-request/preview`
-  endpoint). The call is wrapped in `<IfInterface>`: if the interface is
-  absent, the preview falls back to the regex renderer &mdash; no error, no 404.
-  The interface is declared in this library's `optionalOkapiInterfaces`, so
-  tenants without `mod-template-engine` are unaffected.
+  endpoint). The backend call is guarded by a `template-engine` interface
+  check (`stripes.hasInterface`): if the interface is absent, the preview
+  falls back to the regex renderer &mdash; no error, no 404. The interface is
+  declared in this library's `optionalOkapiInterfaces`, so tenants without
+  `mod-template-engine` are unaffected.
 * The consuming app must request the `template-request.preview.post` permission
   in its `package.json`.
 

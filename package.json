@@ -17,12 +17,15 @@
   "scripts": {
     "start": "stripes serve",
     "lint": "eslint .",
+    "test": "jest --ci --coverage --colors",
     "formatjs-compile": "stripes translate compile"
   },
   "devDependencies": {
     "@folio/eslint-config-stripes": "^8.0.0",
+    "@folio/jest-config-stripes": "^3.0.0",
     "@folio/stripes": "^10.0.0",
-    "@folio/stripes-cli": "^4.0.0"
+    "@folio/stripes-cli": "^4.0.0",
+    "identity-obj-proxy": "^3.0.0"
   },
   "dependencies": {
     "dompurify": "^3.1.3",
