@@ -6,6 +6,8 @@
 * `<TemplateEditor>` accepts a new optional boolean prop `editAsHtml` (defaulting backwards-compatibly to false). When present and true, the editor is a simple `<TextArea>` with which the advanced user can edit the raw HTML of the template; when absent or false, the old behaviour of the Quill-based editor is used. Fixes STRIPES-974.
 * Commit `yarn.lock` to avoid future supply chain attacks. Refs STRIPES-1016.
 * Supply Personal Data Disclosure form. Refs STRIPES-1019.
+* `<TemplateEditor>` accepts new optional props `previewRenderer` (`'regex'` | `'backend'`, defaulting backwards-compatibly to `'regex'`) and `previewContext`. In backend mode the preview is rendered by `mod-template-engine` (`POST /template-request/preview`) so Mustache loops and conditionals match the real message. Guarded by a `template-engine` 2.3 interface check (`stripes.hasInterface`) with a regex fallback; the interface is declared in `optionalOkapiInterfaces`. Refs STRIPES-1025.
+* Add a Jest test setup (`@folio/jest-config-stripes`) and unit tests covering the new preview code; enable `jest-enabled` in CI. Refs STRIPES-1025.
 
 ## [3.5.0](https://github.com/folio-org/stripes-template-editor/tree/v3.5.0) (2025-03-13)
 [Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.4.2...v3.5.0)

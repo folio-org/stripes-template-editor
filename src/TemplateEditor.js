@@ -53,6 +53,8 @@ class TemplateEditor extends React.Component {
     required: PropTypes.bool,
     selectedCategory: PropTypes.string,
     editAsHtml: PropTypes.bool,
+    previewRenderer: PropTypes.oneOf(['regex', 'backend']),
+    previewContext: PropTypes.object,
     intl: PropTypes.object,
   };
 
@@ -61,6 +63,7 @@ class TemplateEditor extends React.Component {
     required: false,
     selectedCategory: '',
     editAsHtml: false,
+    previewRenderer: 'regex',
   };
 
   constructor(props) {
@@ -266,6 +269,8 @@ class TemplateEditor extends React.Component {
       selectedCategory,
       name,
       editAsHtml,
+      previewRenderer,
+      previewContext,
       intl: { formatMessage }
     } = this.props;
 
@@ -330,6 +335,8 @@ class TemplateEditor extends React.Component {
           previewTemplate={value}
           printable={printable}
           onClose={this.closePreviewDialog}
+          previewRenderer={previewRenderer}
+          previewContext={previewContext}
         />
         <TokensModal
           isOpen={showTokensDialog}
