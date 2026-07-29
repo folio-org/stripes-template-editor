@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import ReactQuill, { Quill } from 'react-quill';
 import { v4 as uuidv4 } from 'uuid';
+import classNames from 'classnames';
 
 import {
   isNull,
@@ -22,7 +23,10 @@ import EditorToolbar from './EditorToolbar';
 import PreviewModal from './PreviewModal';
 import ControlHeader from './ControlHeader';
 import ValidationContainer from './ValidationContainer';
-import { sanitize } from './sanitizer';
+import {
+  sanitize,
+  sanitizePlainText,
+} from './sanitizer';
 
 import tokensReducer from './tokens-reducer';
 import IndentStyle from './Attributors/indent';
@@ -53,8 +57,11 @@ class TemplateEditor extends React.Component {
     required: PropTypes.bool,
     selectedCategory: PropTypes.string,
     editAsHtml: PropTypes.bool,
+    plainText: PropTypes.bool,
+    rows: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     previewRenderer: PropTypes.oneOf(['regex', 'backend']),
     previewContext: PropTypes.object,
+    disabled: PropTypes.bool,
     intl: PropTypes.object,
   };
 
@@ -63,6 +70,8 @@ class TemplateEditor extends React.Component {
     required: false,
     selectedCategory: '',
     editAsHtml: false,
+    plainText: false,
+    rows: '12',
     previewRenderer: 'regex',
   };
 
@@ -151,15 +160,16 @@ class TemplateEditor extends React.Component {
     }
   };
 
-  // insertTokensIntoHtml() and insertTokensIntoQuill() are equivalent
-  // functions used to insert tokens into the HTML of the TextArea or
-  // into the Quill editor -- the appropriate function is called
-  // depending on which kind of editor is in use.
+  // insertTokensIntoTextArea() and insertTokensIntoQuill() are equivalent
+  // functions used to insert tokens into the plain <TextArea> (used for
+  // editAsHtml and plainText modes) or into the Quill editor -- the
+  // appropriate function is called depending on which kind of editor is
+  // in use.
 
-  // Note: the HTML version does not attempt to support
-  // `isLoopSelected`.  The immediate need for HTML editing is in the
+  // Note: the TextArea version does not attempt to support
+  // `isLoopSelected`.  The immediate need for TextArea editing is in the
   // context of staff slips, which do not make use of loops. When we
-  // come to the point of needing HTML editing for other kinds of
+  // come to the point of needing TextArea editing for other kinds of
   // templates that use them, that will give us the opportunity (and
   // motivation) for writing and running the relevant new code.
   //
@@ -174,7 +184,7 @@ class TemplateEditor extends React.Component {
   // requestAnimationFrame to delay the positioning of the cursor
   // until that has happened.
   //
-  insertTokensIntoHtml = (tokens = {}) => {
+  insertTokensIntoTextArea = (tokens = {}) => {
     const text = Object.keys(tokens).map(key => tokens[key].tokens.map(s => `{{${s}}}`).join('')).join('');
 
     const elem = document.getElementById(this.quillId);
@@ -269,16 +279,20 @@ class TemplateEditor extends React.Component {
       selectedCategory,
       name,
       editAsHtml,
+      plainText,
+      rows,
       previewRenderer,
       previewContext,
+      disabled,
       intl: { formatMessage }
     } = this.props;
 
-    const invalid = (touched || submitFailed) && !valid && !showTokensDialog;
+    const isTextArea = editAsHtml || plainText;
+    const invalid = !disabled && (touched || submitFailed) && !valid && !showTokensDialog;
 
     const appliedValue = sanitize(value);
 
-    const extraButton = !editAsHtml ? undefined : (
+    const extraButton = !isTextArea ? undefined : (
       <Button
         bottomMargin0
         onClick={this.openTokenDialog}
@@ -297,20 +311,29 @@ class TemplateEditor extends React.Component {
               required={required}
               onPreviewClick={this.openPreviewDialog}
               extraButton={extraButton}
+              disabled={disabled}
             />
             <Row>
               <Col xs={12}>
-                {editAsHtml ?
+                {isTextArea ?
                   <TextArea
                     id={this.quillId}
                     ref={this.textAreaRef}
                     name={name}
                     value={value}
                     onChange={newValue => this.props.input.onChange(sanitize(newValue))}
-                    rows="12"
+                    {...plainText && { onChange: e => this.props.input.onChange(sanitizePlainText(e.target.value)) }}
+                    rows={rows}
                   /> :
-                  <div {... invalid ? { className: css.error } : {}}>
-                    <EditorToolbar id={this.quillToolbarId} />
+                  <div className={classNames({
+                    [css.disabledWrapper]: disabled,
+                    [css.error]: invalid,
+                  })}
+                  >
+                    <EditorToolbar
+                      id={this.quillToolbarId}
+                      disabled={disabled}
+                    />
                     <ReactQuill
                       id={this.quillId}
                       className={css.editor}
@@ -320,6 +343,7 @@ class TemplateEditor extends React.Component {
                       onChange={this.onChange}
                       onBlur={this.onBlur}
                       bounds={`#${this.quillId}`}
+                      readOnly={disabled}
                     />
                   </div>
                 }
@@ -343,7 +367,7 @@ class TemplateEditor extends React.Component {
           tokens={tokens}
           list={tokensList}
           selectedCategory={selectedCategory}
-          onAdd={editAsHtml ? this.insertTokensIntoHtml : this.insertTokensIntoQuill}
+          onAdd={isTextArea ? this.insertTokensIntoTextArea : this.insertTokensIntoQuill}
           onCancel={this.closeTokenDialog}
         />
       </>

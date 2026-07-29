@@ -8,3 +8,11 @@
   resize: vertical;
   overflow: auto;
 }
+
+.disabledWrapper :global(.ql-toolbar.ql-snow),
+:global(.ql-container.ql-snow.ql-disabled) {
+  border-color: var(--color-border);
+  background-color: #ebebe4;
+  color: var(--color-text-disabled);
+  pointer-events: none;
+}

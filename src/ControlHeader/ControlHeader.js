@@ -10,7 +10,13 @@ import {
 
 import css from './ControlHeader.css';
 
-const ControlHeader = ({ label, onPreviewClick, required, extraButton }) => {
+const ControlHeader = ({
+  label,
+  onPreviewClick,
+  required,
+  extraButton,
+  disabled,
+}) => {
   return (
     <Row bottom="xs">
       <Col xs={9}>
@@ -28,6 +34,7 @@ const ControlHeader = ({ label, onPreviewClick, required, extraButton }) => {
             {extraButton}
             <Button
               bottomMargin0
+              disabled={disabled}
               onClick={onPreviewClick}
             >
               <FormattedMessage id="stripes-template-editor.preview" />
@@ -40,6 +47,7 @@ const ControlHeader = ({ label, onPreviewClick, required, extraButton }) => {
 };
 
 ControlHeader.propTypes = {
+  disabled: PropTypes.bool,
   label: PropTypes.node.isRequired,
   required: PropTypes.bool.isRequired,
   onPreviewClick: PropTypes.func.isRequired,
