@@ -2,6 +2,21 @@ import { render, screen } from '@folio/jest-config-stripes/testing-library/react
 
 import TokensSection from './TokensSection';
 
+jest.mock('@folio/stripes/components', () => ({
+  Checkbox: ({ label, disabled, onChange, value }) => (
+    <label htmlFor={value}>
+      {label}
+      <input
+        id={value}
+        type="checkbox"
+        disabled={disabled}
+        onChange={onChange}
+        value={value}
+      />
+    </label>
+  ),
+}));
+
 const renderTokensSection = (props = {}) => render(
   <TokensSection
     section="item"
