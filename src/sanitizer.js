@@ -1,6 +1,7 @@
 import DOMPurify from 'dompurify';
 
 export const SANITIZE_CONFIG = { ADD_TAGS: ['Barcode'], ADD_ATTR: ['target', 'rel'] };
+export const PLAIN_TEXT_SANITIZE_CONFIG = { ALLOWED_TAGS: [], ALLOWED_ATTR: [] };
 
 export const sanitize = (value, config = SANITIZE_CONFIG) => {
   // since DOMPurify has a known issue of reversing the order of attributes in perfectly admissible HTML
@@ -14,3 +15,14 @@ export const sanitize = (value, config = SANITIZE_CONFIG) => {
   }
   return resultValue;
 };
+
+// Decoding via a <textarea>'s innerHTML is safe: a textarea's content model
+// is text-only, so this decodes entities without ever creating/executing
+// child elements, even if the decoded result looks like a tag.
+export const decodeHtmlEntities = (value) => {
+  const textarea = document.createElement('textarea');
+  textarea.innerHTML = value;
+  return textarea.value;
+};
+
+export const sanitizePlainText = (value) => decodeHtmlEntities(sanitize(value, PLAIN_TEXT_SANITIZE_CONFIG));

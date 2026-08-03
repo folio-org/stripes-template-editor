@@ -1,5 +1,9 @@
 # Change history for stripes-template-editor
 
+## IN PROGRESS
+
+* `<TemplateEditor>` accepts a new optional boolean prop `plainText`. Like `editAsHtml`, it renders a simple `<TextArea>` instead of the Quill-based editor, but on every change the value is sanitized against an empty tag allow-list, stripping any HTML tags down to their text content. Intended for template bodies, such as SMS/text-message notices, that cannot render markup. Refs STTEDIT-3.
+
 ## [3.6.0](https://github.com/folio-org/stripes-template-editor/tree/v3.6.0) (IN PROGRESS)
 [Full Changelog](https://github.com/folio-org/stripes-template-editor/compare/v3.5.0...v3.6.0)
 

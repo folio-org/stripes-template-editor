@@ -111,8 +111,9 @@ class TokensSection extends Component {
           data-test-available-tokens
           className={css.tokensList}
         >
-          {tokens.map(({ token, allowedFor }) => {
-            const disabled = !isEmpty(selectedCategory) && !allowedFor.includes(selectedCategory);
+          {tokens.map(({ token, allowedFor, disabled: isTokenDisabled }) => {
+            const disabled = (!isEmpty(selectedCategory) && !allowedFor.includes(selectedCategory))
+              || Boolean(isTokenDisabled);
             const labelClass = disabled ? css.disabledItem : '';
 
             if (!disabled) {

@@ -1,0 +1,4 @@
+.disabled,
+:global(.ql-picker.ql-size):has(+ select:disabled) {
+  opacity: 0.5;
+}
