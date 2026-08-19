@@ -79,12 +79,50 @@ describe('BackendPreview', () => {
       expect(screen.getByText('Loading')).toBeInTheDocument();
     });
 
-    it('shows an error message when the request fails', () => {
+    it('shows the generic message when the request fails without readable detail', () => {
       useTemplatePreview.mockReturnValue({ data: undefined, isLoading: false, isError: true });
 
       renderBackendPreview();
 
       expect(screen.getByText('stripes-template-editor.preview.backendError')).toBeInTheDocument();
+    });
+
+    it('shows the backend diagnostic and the caret excerpt when the response carries them', () => {
+      useTemplatePreview.mockReturnValue({
+        data: undefined,
+        isLoading: false,
+        isError: true,
+        error: {
+          previewError: {
+            message: "found: '}}}', expected: '}}'",
+            excerpt: 'Hallo {{user.name}}}\n                 ^',
+          },
+        },
+      });
+
+      renderBackendPreview();
+
+      expect(screen.getByText('stripes-template-editor.preview.backendError')).toBeInTheDocument();
+      expect(screen.getByText(/found: '}}}', expected: '}}'/)).toBeInTheDocument();
+      expect(screen.getByText(/Hallo {{user\.name}}}/)).toBeInTheDocument();
+    });
+
+    it('shows the diagnostic without an excerpt when there is no caret line', () => {
+      useTemplatePreview.mockReturnValue({
+        data: undefined,
+        isLoading: false,
+        isError: true,
+        error: {
+          previewError: {
+            message: "Failed to close 'user.name' tag @[null:1]",
+            excerpt: null,
+          },
+        },
+      });
+
+      renderBackendPreview();
+
+      expect(screen.getByText("Failed to close 'user.name' tag @[null:1]")).toBeInTheDocument();
     });
   });
 });

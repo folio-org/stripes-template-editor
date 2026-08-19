@@ -2,6 +2,8 @@ import { useQuery } from 'react-query';
 
 import { useOkapiKy } from '@folio/stripes/core';
 
+import extractBackendError from './extractBackendError';
+
 const PREVIEW_PATH = 'template-request/preview';
 
 /**
@@ -16,18 +18,27 @@ const PREVIEW_PATH = 'template-request/preview';
 const useTemplatePreview = ({ templateBody, context, enabled }) => {
   const ky = useOkapiKy();
 
-  const { data, isLoading, isError } = useQuery(
+  const { data, isLoading, isError, error } = useQuery(
     ['stripes-template-editor', 'template-preview', templateBody, context],
-    () => ky.post(PREVIEW_PATH, {
-      json: {
-        body: templateBody || '',
-        context: context ?? {},
-      },
-    }).json(),
+    async () => {
+      try {
+        return await ky.post(PREVIEW_PATH, {
+          json: {
+            body: templateBody || '',
+            context: context ?? {},
+          },
+        }).json();
+      } catch (err) {
+        // Read here, not in the consumer: response.text() is async.
+        err.previewError = await extractBackendError(err);
+
+        throw err;
+      }
+    },
     { enabled },
   );
 
-  return { data, isLoading, isError };
+  return { data, isLoading, isError, error };
 };
 
 export default useTemplatePreview;
