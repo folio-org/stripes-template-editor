@@ -6,6 +6,7 @@ import { useStripes } from '@folio/stripes/core';
 
 import buildPreviewContent from '../previewContent';
 import useTemplatePreview from './useTemplatePreview';
+import css from './BackendPreview.css';
 
 const TEMPLATE_ENGINE_INTERFACE = 'template-engine';
 const TEMPLATE_ENGINE_VERSION = '2.3';
@@ -26,7 +27,7 @@ const BackendPreview = ({ templateBody, context, fallback }) => {
   // coerce to a real boolean for the `enabled` flag (react-query requires it).
   const hasInterface = Boolean(stripes.hasInterface(TEMPLATE_ENGINE_INTERFACE, TEMPLATE_ENGINE_VERSION));
 
-  const { data, isLoading, isError } = useTemplatePreview({
+  const { data, isLoading, isError, error } = useTemplatePreview({
     templateBody,
     context,
     enabled: hasInterface,
@@ -37,9 +38,16 @@ const BackendPreview = ({ templateBody, context, fallback }) => {
   if (isLoading) return <Loading size="large" />;
 
   if (isError) {
+    const detail = error?.previewError;
+
     return (
       <div data-test-backend-preview-error>
         <FormattedMessage id="stripes-template-editor.preview.backendError" />
+        {detail?.message && (
+          <pre className={css.errorDetail}>
+            {detail.excerpt ? `${detail.message}\n\n${detail.excerpt}` : detail.message}
+          </pre>
+        )}
       </div>
     );
   }

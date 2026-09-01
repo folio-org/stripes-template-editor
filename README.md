@@ -90,6 +90,11 @@ body. `header`/`body`/`context` are all optional on that endpoint.
 * The consuming app must request the `template-request.preview.post` permission
   in its `package.json`.
 
+When the backend rejects a template, the preview shows the diagnostic it returned
+below the generic message, followed by a short excerpt with a caret where the
+response points at a position. How much detail arrives depends on the template
+resolver; if none can be extracted, the generic message is shown on its own.
+
 ### Sample context shape
 
 The context mirrors the nested object the backend builds for the real message
