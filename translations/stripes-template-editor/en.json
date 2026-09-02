@@ -4,6 +4,8 @@
   "print": "Print",
   "preview": "Preview",
   "preview.backendError": "The preview could not be rendered.",
+  "preview.subject": "Subject",
+  "preview.body": "Body",
 
   "toolbar.text.bold": "bold",
   "toolbar.text.italic": "italic",
