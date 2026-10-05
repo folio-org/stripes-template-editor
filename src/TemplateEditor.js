@@ -61,6 +61,7 @@ class TemplateEditor extends React.Component {
     rows: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     previewRenderer: PropTypes.oneOf(['regex', 'backend']),
     previewContext: PropTypes.object,
+    previewSubject: PropTypes.string,
     disabled: PropTypes.bool,
     intl: PropTypes.object,
   };
@@ -283,6 +284,7 @@ class TemplateEditor extends React.Component {
       rows,
       previewRenderer,
       previewContext,
+      previewSubject,
       disabled,
       intl: { formatMessage }
     } = this.props;
@@ -361,6 +363,7 @@ class TemplateEditor extends React.Component {
           onClose={this.closePreviewDialog}
           previewRenderer={previewRenderer}
           previewContext={previewContext}
+          previewSubject={previewSubject}
         />
         <TokensModal
           isOpen={showTokensDialog}

@@ -11,6 +11,8 @@ jest.mock('@folio/stripes/core', () => ({
 
 jest.mock('@folio/stripes/components', () => ({
   Loading: () => <div>Loading</div>,
+  KeyValue: ({ label, value }) => <div>{label}: {value}</div>,
+  Label: ({ children }) => <div>{children}</div>,
 }));
 
 jest.mock('./useTemplatePreview');
@@ -68,6 +70,54 @@ describe('BackendPreview', () => {
           context: { name: 'Alex' },
           enabled: true,
         }),
+      );
+    });
+
+    it('renders no subject and sends no header when previewSubject is omitted', () => {
+      useTemplatePreview.mockReturnValue({
+        data: { body: '<strong>Rendered body</strong>' },
+        isLoading: false,
+        isError: false,
+      });
+
+      renderBackendPreview();
+
+      expect(screen.queryByText(/stripes-template-editor.preview.subject/)).not.toBeInTheDocument();
+      expect(screen.queryByText('stripes-template-editor.preview.body')).not.toBeInTheDocument();
+      expect(useTemplatePreview).toHaveBeenCalledWith(
+        expect.objectContaining({ templateSubject: undefined }),
+      );
+    });
+
+    it('renders the labeled subject above the labeled body when previewSubject is set', () => {
+      useTemplatePreview.mockReturnValue({
+        data: { header: 'Order 12345 has been placed', body: '<strong>Rendered body</strong>' },
+        isLoading: false,
+        isError: false,
+      });
+
+      renderBackendPreview({ templateSubject: 'Order {{order.poNumber}} has been placed' });
+
+      expect(screen.getByText(/Order 12345 has been placed/)).toBeInTheDocument();
+      expect(screen.getByText('stripes-template-editor.preview.body')).toBeInTheDocument();
+      expect(screen.getByText('Rendered body')).toBeInTheDocument();
+      expect(useTemplatePreview).toHaveBeenCalledWith(
+        expect.objectContaining({ templateSubject: 'Order {{order.poNumber}} has been placed' }),
+      );
+    });
+
+    it('renders the subject line even when the rendered subject is empty', () => {
+      useTemplatePreview.mockReturnValue({
+        data: { header: '', body: '<strong>Rendered body</strong>' },
+        isLoading: false,
+        isError: false,
+      });
+
+      renderBackendPreview({ templateSubject: '' });
+
+      expect(screen.getByText('stripes-template-editor.preview.body')).toBeInTheDocument();
+      expect(useTemplatePreview).toHaveBeenCalledWith(
+        expect.objectContaining({ templateSubject: '' }),
       );
     });
 

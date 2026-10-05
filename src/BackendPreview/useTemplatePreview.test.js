@@ -50,6 +50,27 @@ describe('useTemplatePreview', () => {
     });
   });
 
+  it('sends header only when a subject is given', async () => {
+    mockPost.mockReturnValue({ json: () => Promise.resolve({ header: 'Subject', body: 'ok' }) });
+
+    const { result } = renderTemplatePreview({ templateBody: 'Body', templateSubject: 'Subject', enabled: true });
+
+    await waitFor(() => expect(result.current.data).toEqual({ header: 'Subject', body: 'ok' }));
+    expect(mockPost).toHaveBeenCalledWith('template-request/preview', {
+      json: { body: 'Body', context: {}, header: 'Subject' },
+    });
+  });
+
+  it('sends an empty header for an empty subject', async () => {
+    mockPost.mockReturnValue({ json: () => Promise.resolve({ header: '', body: 'ok' }) });
+
+    renderTemplatePreview({ templateBody: 'Body', templateSubject: '', enabled: true });
+
+    await waitFor(() => expect(mockPost).toHaveBeenCalledWith('template-request/preview', {
+      json: { body: 'Body', context: {}, header: '' },
+    }));
+  });
+
   it('does not call the backend when disabled', () => {
     renderTemplatePreview({ templateBody: 'Body', context: {}, enabled: false });
 

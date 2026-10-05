@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import { Loading } from '@folio/stripes/components';
+import {
+  KeyValue,
+  Label,
+  Loading,
+} from '@folio/stripes/components';
 import { useStripes } from '@folio/stripes/core';
 
 import buildPreviewContent from '../previewContent';
@@ -21,7 +25,7 @@ const TEMPLATE_ENGINE_VERSION = '2.3';
  * older) mod-template-engine, hasInterface is false and we render the
  * regex `fallback` instead - no crash, no 404.
  */
-const BackendPreview = ({ templateBody, context, fallback }) => {
+const BackendPreview = ({ templateBody, templateSubject, context, fallback }) => {
   const stripes = useStripes();
   // hasInterface returns the interface version (string) or undefined, so
   // coerce to a real boolean for the `enabled` flag (react-query requires it).
@@ -29,6 +33,7 @@ const BackendPreview = ({ templateBody, context, fallback }) => {
 
   const { data, isLoading, isError, error } = useTemplatePreview({
     templateBody,
+    templateSubject,
     context,
     enabled: hasInterface,
   });
@@ -52,11 +57,31 @@ const BackendPreview = ({ templateBody, context, fallback }) => {
     );
   }
 
-  return buildPreviewContent(data?.body || '');
+  const body = buildPreviewContent(data?.body || '');
+
+  // '' still renders a subject line, only undefined opts out.
+  if (templateSubject === undefined) return body;
+
+  return (
+    <>
+      <KeyValue
+        label={<FormattedMessage id="stripes-template-editor.preview.subject" />}
+        value={data?.header || ''}
+      />
+      <hr />
+      {/* The body stays out of KeyValue: its pre-wrap value styling doubles
+          every line break in the rendered message. */}
+      <Label tagName="div" className={css.bodyLabel}>
+        <FormattedMessage id="stripes-template-editor.preview.body" />
+      </Label>
+      {body}
+    </>
+  );
 };
 
 BackendPreview.propTypes = {
   templateBody: PropTypes.string,
+  templateSubject: PropTypes.string,
   context: PropTypes.object,
   fallback: PropTypes.node,
 };
