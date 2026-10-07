@@ -71,6 +71,16 @@ describe('useTemplatePreview', () => {
     }));
   });
 
+  it('sends templateResolver only when a resolver is given', async () => {
+    mockPost.mockReturnValue({ json: () => Promise.resolve({ body: 'ok' }) });
+
+    renderTemplatePreview({ templateBody: 'Body', templateResolver: 'handlebars', enabled: true });
+
+    await waitFor(() => expect(mockPost).toHaveBeenCalledWith('template-request/preview', {
+      json: { body: 'Body', context: {}, templateResolver: 'handlebars' },
+    }));
+  });
+
   it('does not call the backend when disabled', () => {
     renderTemplatePreview({ templateBody: 'Body', context: {}, enabled: false });
 

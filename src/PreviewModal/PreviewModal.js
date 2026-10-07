@@ -24,6 +24,7 @@ class PreviewModal extends React.Component {
     previewRenderer: PropTypes.oneOf(['regex', 'backend']),
     previewContext: PropTypes.object,
     previewSubject: PropTypes.string,
+    previewTemplateResolver: PropTypes.string,
   };
 
   static defaultProps = {
@@ -93,6 +94,7 @@ class PreviewModal extends React.Component {
       previewRenderer,
       previewContext,
       previewSubject,
+      previewTemplateResolver,
     } = this.props;
 
     const regexContent = buildPreviewContent(templateResolver(previewTemplate)(previewFormat));
@@ -105,6 +107,7 @@ class PreviewModal extends React.Component {
         <BackendPreview
           templateBody={previewTemplate}
           templateSubject={previewSubject}
+          templateResolver={previewTemplateResolver}
           context={previewContext}
           fallback={regexContent}
         />

@@ -106,6 +106,20 @@ describe('BackendPreview', () => {
       );
     });
 
+    it('passes the resolver to the request only when it is set', () => {
+      renderBackendPreview();
+
+      expect(useTemplatePreview).toHaveBeenLastCalledWith(
+        expect.objectContaining({ templateResolver: undefined }),
+      );
+
+      renderBackendPreview({ templateResolver: 'handlebars' });
+
+      expect(useTemplatePreview).toHaveBeenLastCalledWith(
+        expect.objectContaining({ templateResolver: 'handlebars' }),
+      );
+    });
+
     it('renders the subject line even when the rendered subject is empty', () => {
       useTemplatePreview.mockReturnValue({
         data: { header: '', body: '<strong>Rendered body</strong>' },

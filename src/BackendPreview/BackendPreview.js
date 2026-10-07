@@ -25,7 +25,7 @@ const TEMPLATE_ENGINE_VERSION = '2.3';
  * older) mod-template-engine, hasInterface is false and we render the
  * regex `fallback` instead - no crash, no 404.
  */
-const BackendPreview = ({ templateBody, templateSubject, context, fallback }) => {
+const BackendPreview = ({ templateBody, templateSubject, templateResolver, context, fallback }) => {
   const stripes = useStripes();
   // hasInterface returns the interface version (string) or undefined, so
   // coerce to a real boolean for the `enabled` flag (react-query requires it).
@@ -34,6 +34,7 @@ const BackendPreview = ({ templateBody, templateSubject, context, fallback }) =>
   const { data, isLoading, isError, error } = useTemplatePreview({
     templateBody,
     templateSubject,
+    templateResolver,
     context,
     enabled: hasInterface,
   });
@@ -82,6 +83,7 @@ const BackendPreview = ({ templateBody, templateSubject, context, fallback }) =>
 BackendPreview.propTypes = {
   templateBody: PropTypes.string,
   templateSubject: PropTypes.string,
+  templateResolver: PropTypes.string,
   context: PropTypes.object,
   fallback: PropTypes.node,
 };

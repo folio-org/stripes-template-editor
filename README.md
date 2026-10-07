@@ -74,6 +74,7 @@ import { SAMPLE_CONTEXT } from './sampleContext';
 | `previewRenderer` | `'regex' \| 'backend'` | `'regex'` | Selects the preview renderer. `'regex'` keeps the existing behaviour. |
 | `previewContext` | `object` | &ndash; | Sample context passed to the backend. Used only when `previewRenderer="backend"`. |
 | `previewSubject` | `string` | &ndash; | Subject template, for consumers that keep the subject in a separate field. Used only when `previewRenderer="backend"`. |
+| `previewTemplateResolver` | `string` | &ndash; | Template engine the template is stored with, e.g. `'handlebars'`, sent as `templateResolver`. Omitted, the backend falls back to `mustache`. Used only when `previewRenderer="backend"`. |
 
 The editor edits a single field (the body), so backend mode sends
 `{ body, context }` to `POST /template-request/preview` and shows the rendered
